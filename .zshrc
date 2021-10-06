@@ -125,6 +125,7 @@ knownrm() {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Enable jenv
-eval "$(jenv init -)"
+# Quiet down some annoying zsh warnings.
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+eval "$(jenv init -)"
