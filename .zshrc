@@ -39,6 +39,21 @@ else
     echo "Unknown architecture: ${arch_name}"
 fi
 
+# History storage 
+HISTSIZE=4000
+if (( ! EUID )); then
+  HISTFILE=~/.zsh_history_root
+else
+  HISTFILE=~/.zsh_history
+fi
+SAVEHIST=4000
+
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+
 # Allow history search via up/down keys.
 source ${share_path}/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey "^[[A" history-substring-search-up
