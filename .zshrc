@@ -14,6 +14,12 @@ unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
 
+# Set CLICOLOR if you want Ansi Colors in iTerm2 
+export CLICOLOR=1
+
+# Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
+
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
 
@@ -38,6 +44,21 @@ elif [ "${arch_name}" = "arm64" ]; then
 else
     echo "Unknown architecture: ${arch_name}"
 fi
+
+# History storage 
+HISTSIZE=4000
+if (( ! EUID )); then
+  HISTFILE=~/.zsh_history_root
+else
+  HISTFILE=~/.zsh_history
+fi
+SAVEHIST=4000
+
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 
 # Allow history search via up/down keys.
 source ${share_path}/zsh-history-substring-search/zsh-history-substring-search.zsh
